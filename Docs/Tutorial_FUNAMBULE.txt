@@ -1,0 +1,80 @@
+Tutorial  for Funambule
+
+
+Date May, 25, 2020
+Author M. L. M. François
+
+
+----------------------------------------------------------------
+
+Installation
+
+All the Matlab files are un the folder CORRELATION_2020. 
+In Windows 
+A 2017 or later version of Matlab is required. 
+The image toolbox is required for complete operation of DigImCo.
+In Windows systems, avoid folder names with a blank.
+
+----------------------------------------------------------------
+
+First exercise: image "Basic_tests.tiff" and output details
+
+Launch FUNAMBULE. Select the image Basic_tests.tiff in the folder VIC_examples.
+Let’s begin by the lower left circle. Choose the type of curve “Circle”. Tell Funambule that it is a contour (a curve) by hitting 0. Click 3 points approximately on the lower left circle.
+
+Once terminated you can see on Figure 1 the red identified circle onto the image F you treated. Zoom on it (by selecting a box): the mean line is the curve itself (the circle in this case) which fits at best the curve in the image. You can see that it passes exactly by the middle of the curve, despite its pixelisation. The outer and inner red curves are the borders of the virtual image. 
+
+The command windows informas you that the last value for R, the half width of the virtual image, is 6 pixels. In this automatic version, R is defined automatically: it has begun at 2 and increased to 4,6 and finally to 6. You also can see that the cost function Psi decreased during the optimisation, as soon as the parameters L evolved to the final values.  The RESULTS zone shows you the the best circle is of radius very close to the 125 pixels used for the drawing. The UNCERTAINTY zone gives you the theoretical precision (publication 4). you certainly have some warnings below which shows you that it was not attained. This is in relation with figure 4 detailed below. The last COMPLEMENTARY INFORMATION zone contains extra indication, in particular the set of 3 parameters used for the circle (coordinates of the center and radius).
+
+Look at figure 2. It shows the image F in the frame of the curve, such as an unwrapped view of the curve. The horizontal axis is L x1, where x1 in [0 1] is the curve parameter and L the length of the curve (pixels). The vertical axis is R x2 where x2 in[-1 1] is the radial parameter of the virtual image and R the half width of the virtual image. In fact x1 and x2 are the proper coordinates of the virtual image. The virtual image itself is not shown but is very similar to what you see, consisting in a linear evolution white-black-white in this frame. You observe that black and white is symmetrically disposed around the middle axis, denoting a proper identification. The moire effect is associated to the pixellisation of the image. The green curve mu is a classical local identifier, which do not relies on the curve equation. You see that is null in average but hows some sub-pixel variations. If you zoom, you will see many frequencies in it. The shortest wavelength is the pixel size. The reason is the image is not a perfect image, thus the gray levels of the border is not exactly what you would have with an image of a sharp edge with a perfect camera. At the other extremity, you guess a wavelength at L/4 which reveals the square shape of the pixel frame. See Figure 1: on top, bottom, left, right, the circle image is near to be neat. At 45 degrees, the pixelisation is much more visible.
+
+Figure 3 shows the FFT of this function mu(x1).  The wavelengths are indicated. At the extreme right, the triangle show the continuous component (systematic error). It should be below the theoretically acceptable limits sigma_n or sigma_d. You can see on the right of the spectrum the long wavelengths.Among them, the Curve length/ numbers of parameters (here: 3) is of great importance because this length represents in average the domain of influence of each parameter. Here, you can see that this peak is at 2 10-3 pixel, it is not too bad, but above the theoretical limit, because the gray levels are not exactly what they should be. The next wavelength is the pixel size. The last band is the sub-pixel size, from 1 to 1/3 of pixel. Depending only upon the interpolation, the peaks are well under the theoretical limits. In the command window, you have a warning on these overshoots and comments on possible reasons of it.
+
+Now you can run the code on the same image and explore the identification by ellipses, segments or cantilever beam (in beam folder). You also can try to identify a circle thanks to an ellipse: it is long since, theoretically, the great and small axis are undefined. The vertical solution corresponds to the pixel grid. 
+
+You also can try the (closed) B-Splines on these contours. For the circle, you will have a nice identification with four points. I am sure that at first try, you will fail because you clicked exactly on the circle: look at the result: a B-Spline passes very inside the control points. Try again with farer initial points. You see the virtual image width at first increase in order to catch the curve and at second decrease to its optimal width (here 6). Look at figure 2: this is how the code "sees" the physical image. When R is large, you can see inside the writings in F. If your initial points are far, the process can be slow, the VIC is not a detection method. Once terminated, you will clearly observe a wavelength of L/4 in mu in both figures 2 and 3. This is due to the fact that a B-Spine cannot depict exactly a circle. The four control points finish to be equally distributed around the circle, mu is still of null average. The identification is the closest B-Spline to the circle.
+
+Try again with more control points, higher B-Slpine order... The greater the number of points and the order, the better the identification. You may have some points which get very close, creating sort of local loops. This is a limit of the method (which can be resolved by passing in manual mode - an option in Funambule - and setting a fixed R, but with a good initial setting). 
+
+Now identify the pentagonal silhouette. Select the curve Polygon, a silhouette, click the five points. For the silhouette you must be careful that the white is on the good side of the oriented curve. In the opposite case, FUNAMBULE can revert the image (no loss of precision).
+
+Let's try a more mechanical problem with the cantilever beam. Of course this curve is orientated because the curvature is greater at the anchorage (bottom left) than at the end. After convergence you will see the rest straight line beam in dashed line onto Figure 1, and the deformed cubic best fit. The result of interest is not the whole L but only the mechanical parameter FL^2/6EI (see RESULTS in the Command Window) because it has a mechanical meaning and because it does not depend upon your hand-clicked points.
+
+----------------------------------------------------------------
+
+Second exercise: precision on synthetic images
+
+The images in Images/VIC_tests/Curve_tests have been made with a generator of images which mimics a real imaging. The luminance of the pixels by which the real edge passes is computed from the amount of relative white and black in the pixel. Thus the mu curve should be below or close to the theoretical limits and the prescribed curve shape parameters should be recovered with great exactitude. They are indicated in the name of the image. 
+
+Begin by the Chainette1. Select the beams/Chainette curve. After some time (the chainette is far from the initial straight line) you get the physical results pL/N and x0, where p is the distributed load, N the tension, and x0 the relative abscissa of the middle of the chainette (the lowest point in the classical case of vertical gravity). You can compare the results you get to the prescribed values indicated in the name of the image: 1 and 0.25. However keep in mind that the second depends upon the points you clicked, but not the first which defines the curvature of the chainette, thus which has to be precisely recovered. Check that the mu curve, in figure 3, is lot too far (less than one dizain) from the theoretical precision, i.e. at some 10-3 pixels. Not too bas for a 100 pixel long curve !
+
+Try the others images in the folder. Finish by the B-Spline for which you should give at least the correct number of control points (4). Click them close to the four high-curvature regions, following the 8 shape. Check that the control points are correctly recovered (thanks to a circular permutation). Keep in mind that a B-Spline is not that sensitive to a shift of a control point along the curve tangent. The precision of the location of the control point may not be sub-pixel, even if the identification is !
+
+----------------------------------------------------------------
+
+Third exercise: il contraster and noisy images
+
+Funambule can deal with ill contraster images. The Folder Images/VIC_tests/VIC_contrast_tests contains an image with various shape and contrasts to play with. Again they are not precise images thus the mu curve can exceed the theoretical limits.
+
+You can also check the effect of noise. For the noisiest image, the disc is hardly visible. The automatic procedure leads to an infinite loop with oscillating solution. You may have to deactivate the auto mode in Funamabule (close to line 40, set auto to false). After the first computation, ask the program to set R=2. ou will converge quickly and you can compare the obtained location of the center and the radius. Of course you are only precise at 1/10 pixel but observe that the whole disc has a surface close to 40 pixels^2 and a huge level of noise... Re-set the mode to auto=true at end.
+
+----------------------------------------------------------------
+
+Fourth exercise: true cases
+
+Launch Funambule on the VIC_example/CAD/IBOX_cote image. You cn see an image a cast iron shell. Select the curve CAD-IBOW which is based onto the cad drawing of the part. You should identify properly the edge of the object despite the ill quality of the background and lightening. Do not hesitate to zoom on figure 1.
+
+Try the image VIC_examples.CGA_strain_measurement. The circles, etched on a metal sheet, have deformed during the stamping process. According to the the mechanics of continuous media, the deformed shape is an ellipse. Due to the presence of other circles, results are better in the manual mode.
+
+You can also try the large image Beams/dawn-twilight-dusk-electricity on which the electrical wires depict chainettes. You can try at last with the uppermost, tiny cable.
+
+You can load the image JR_star in folder VIC_example/Silhouette to identify the contour thanks to a B-Spline with at least one point per valley and one point per summit. You may have to deactivate the auto mode because the border is ill-defined and dented. 
+
+The thickbeam file can be identified either with a curve (wide) or with a silhouette (upper or lower edge). The PureFlexion curve will fit but the more general, higher order, cubic equation will fit better, as well as a B-Spline, of course.
+
+----------------------------------------------------------------
+
+These curve equations can be used as models for the development of other curves. The level of display can be set in Funambule. From 2, it checks the analytical gradients required for the computation. 
+
+
+

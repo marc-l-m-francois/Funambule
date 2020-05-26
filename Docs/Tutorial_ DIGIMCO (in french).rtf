@@ -1,0 +1,168 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;\f2\fswiss\fcharset0 Helvetica-Bold;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+{\info
+{\author marc Fran\'e7ois}}\paperw11900\paperh16840\margl1440\margr1440\vieww13300\viewh27080\viewkind1
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qc\partightenfactor0
+
+\f0\fs36 \cf0 Exercice pour l\'92utilisation des logiciels\
+ DigImCo et DigImCo-Q4\
+
+\fs24 \
+par marc Fran\'e7ois, leur auteur\
+{\field{\*\fldinst{HYPERLINK "mailto:marc.francois@univ-nantes.fr"}}{\fldrslt marc.francois@univ-nantes.fr}}\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qj\partightenfactor0
+\cf0 \ul \ulc0 Note :\ulnone  DigImCo et DigImCo-Q4 sont des logiciels Matlab de corr\'e9lation d\'92images num\'e9riques (DIC) en 2D. Ils ne sont pas mis en ligne, mais je les fourni sur simple demande \'e0 la communaut\'e9 scientifique. Ces deux logiciels sont inspir\'e9s des publication de F. Hild et S. Roux sur le sujet. Initialement pr\'e9vus pour un TP de Master 2, ils sont con\'e7us pour \'eatre le plus simple possible en vue de d\'e9veloppements personnels. \
+\
+DigImCo utilise des champs, regroup\'e9s dans le r\'e9pertoire champ, que l\'92on peut compl\'e9ter par d\'92autres. Les champs par d\'e9faut sont :\
+\'97 CORSOL, pour le mouvement de corps solide (2 translation et 1 rotation)\
+\'97 DEFHOM, pour les d\'e9formations homog\'e8nes (2 translations et 4 composantes du tenseur gradient de la transformation F). DEFHOM permet l\'92identification rapide des constantes d\'92\'e9lasticit\'e9 sur un essai de traction
+\f1\i  (un post-pro reste \'e0 faire).
+\f0\i0  \
+\'97 BRESIL est le champ analytique solution de l\'92essai br\'e9silien (compression diam\'e9trale). Les param\'e8tres du champ donnent directement acc\'e8s aux modules d\'92\'e9lasticit\'e9 isotrope du solide. 
+\f1\i Il n\'92est pas encore remis au point.
+\f0\i0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qj\partightenfactor0
+
+\f2\b \cf0 Exercice 1 : prise en main de DigImCo\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qj\partightenfactor0
+
+\f0\b0 \cf0 \
+Lancer DIGIMCO sur les images Bureau_EI (pour \'e9tat initial) et Bureau_EF (pour \'e9tat final). Il s\'92agit de deux photos de mon bureau, avec un petit d\'e9calage, \'e0 l\'92aide de la webcam de mon ordinateur. A priori, les deux images sont juste d\'e9call\'e9es d\'92un mouvement de corps solide, donc on s\'e9lectionnera le champ CORSOL.\
+\
+DigImCo vous demande de s\'e9lectionner soit l\'92image compl\'e8te soit un domaine d\'92int\'e9r\'eat. C\'92est sur ce domaine que va se faire la corr\'e9lation. Prendre toute l\'92image. Le logiciel inclus un niveau de flou pour l\'92\'e9tape initiale, r\'e9glable dans le corps du programme. Ce flou permet, en lissant l\'92image, de converger rapidement vers une solution proche. Il ne faut pas prendre trop grand car sinon l\'92image s\'92efface ; une valeur de quelques pixel est en g\'e9n\'e9ral satisfaisante. Prendre 10 pixels environ. Lancer le calcul. A la phase finale, le flou est \'e9videmment ramen\'e9 \'e0 0, on travaille sur les images originales.\
+\
+Vous observez le cadre rouge du bord de l\'92image sur la figure 1, qui correspond donc ici au domaine de corr\'e9lation. Sur l\'92image finale (figure 2) le domaine est d\'e9cal\'e9 : il repr\'e9sente ce m\'eame contour de l\'92image 1, d\'e9cal\'e9e pour \'e9pouser au mieux l\'92image 2. On voit clairement le d\'e9placement de quelques pixels vers la droite (donc en x1) et vers le haut (en x2). Regardez le bout du stylo en bas \'e0 gauche de l\'92image initiale (figure 1) : on le retrouve en bas \'e0 gauche du cadre rouge sur l\'92image finale (figure 2). On peut imaginer que le d\'e9placement obtenu est optimal.\
+\
+La figure 3 montre la carte d\'92erreur : il s\'92agit de la diff\'e9rence entre l\'92image F (initiale) et G, l\'92image finale d\'e9form\'e9e selon le champ de d\'e9placement obtenu. L\'92image apparait noire, sauf quelques \'93reliefs\'94 l\'e9g\'e8rement plus clairs : il y a tr\'e8s peu d\'92\'e9cart entre les images. La corr\'e9lation est un succ\'e8s. Si vous avez eu le temps - ou un ordinateur lent - vous pouvez voir l\'92image se noircir progressivement  au cours du processus d\'92optimisation.\
+\
+La figure 5 montre la d\'e9form\'e9e amplifi\'e9e. Le logiciel vous demande un facteur d\'92amplification, par d\'e9faut \'e0 1. Taper 10, 100. Vous voyez alors que l\'92image n\'92a pas seulement translat\'e9 mais aussi quelque peu tourn\'e9. D\'92ailleurs la valeur de la rotation est indiqu\'e9e juste au dessus : environ -5/1000 de degr\'e9 : c\'92est tr\'e8s peu et c\'92est pour cela qu\'92il vous faut augmenter le d\'e9placement d\'92un facteur 100 pour le voir. Taper [] pour sortir.\
+\
+La figure 4 donne la convergence de la m\'e9thode. Selon e niveau de pr\'e9cision choisi (dans le programme, variable \'93precision\'94, vous allez laisser le calcul aller plus ou moins loin. Les petites oscillations en fin de calcul ne sont pas graves.\
+\
+Le logiciel vous demande maintenant le champ de votre choix. Commencez par taper U1 (comme cela, sans guillemets), pour voir le champ de d\'e9placement horizontal sur la figure 1. Vous obtenez une zone uniforme : la barre de couleurs vous indique environ 25 pixels. Il s\'92agit donc d\'92un d\'e9placement selon x1 (horizontal vers la droite) de 25 pixels. Continuez par U2 : vous voyez une carte de d\'e9placements verticaux de -25 pixels. Comme l\'92axe 2 est orient\'e9 vers le base, cela correspond \'e0 un d\'e9placement vers le haut, comme vous l\'92avez observ\'e9 figure 2 : le cadre rouge est bien d\'e9cal\'e9 vers le haut et la droite.\
+\
+Sur la figure 1 apparait un bord de couleur diff\'e9rente. Regardez la figure 2 : le cadre, sur la figure 2, sort de l\'92image vers le haut et vers la droite. Cette partie de l\'92image  de d\'e9part (figure 1) ne peut donc pas corr\'e9ler avec la figure 2 et c\'92est pour cela que vous avez ces bandes sur la figure 1, qui indiquent une valeur de d\'e9placement nul par d\'e9faut. 
+\f1\i Dans une version ult\'e9rieure ces bandes devraient apparaitre noires, mais je n\'92ai pas r\'e9ussi \'e0 le programmer simplement.
+\f0\i0 \
+\
+Taper E11 pour avoir la composante 11 du tenseur des d\'e9formations de Green-Lagrange. Vous avez une carte tr\'e8s bruit\'e9e ; regardez l\'92\'e9chelle : c\'92est un r\'e9sidu num\'e9rique. Comme vous avez demand\'e9 un champ de corps solide, la d\'e9formation est \'e9videmment nulle. Les autres composantes E12, E22, E21 donneront un r\'e9sultat similaire. Sortez du menu en tapant [ ];\
+\
+Toutes les valeurs des champs indiqu\'e9s sont en m\'e9moire : tapez U1 pour avoir la carte des d\'e9placements suivant 1. La position des points correspondant est dans X1 et X2. Il s\'92agit de valeurs enti\'e8res correspondant aux centres des pixels. Par contre, les positions x1 et x2 correspondant aux positions des points correspondants dans le rep\'e8re de l\'92image 2 : ce sont des grandeurs r\'e9elles, non enti\'e8res. La diff\'e9rence entre les deux est le d\'e9placement U1, respectivement U2. \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qj\partightenfactor0
+
+\f2\b \cf0 Exercice 2 : importance de la phase pr\'e9liminaire\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qj\partightenfactor0
+
+\f0\b0 \cf0 \
+Reprendre l\'92exercice pr\'e9c\'e9dent (sur les images du bureau, avec un d\'e9placement de corps solide) mais en mettant un flou \'e0 0 d\'e8s le d\'e9part. La convergence est lente. Observez l\'92image 3 : il reste des zones blanches : l\'92optimisation s\'92est arr\'eat\'e9e sur un minimum local (en particulier \'e0 cause des lamelles des rideaux qui \'93bloquent\'94 en X2). Vous voyez maintenant l\'92int\'e9r\'eat de mettre un flou \'e0 la premi\'e8re \'e9tape.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qj\partightenfactor0
+
+\f2\b \cf0 Exercice 3 : champ de d\'e9formation homog\'e8ne
+\f0\b0 \
+\
+Reprendre toujours le m\'eame exercice du bureau mais avec le descripteur un peu plus riche DEFHOM, en mettant un flou de quelques pixels pour \'e9viter le probl\'e8me pr\'e9c\'e9dent. Vous pouvez aussi s\'e9lectionner un domaine un peu plus petit que toute l\'92image. Cela se fait en cliquant (en sens trigo ou inverse) les points du bord, vous pouvez donner la forme que vous voulez (un domaine compact cependant). Vous pouvez m\'eame cliquer des points en dehors de l\'92image.\
+\
+Sortez les d\'e9placements U1, U2, et la d\'e9form\'e9e. vous trouvez des r\'e9sultats similaires aux pr\'e9c\'e9dents. Observez la carte des erreurs : la corr\'e9lation est excellente. Sortez la carte des d\'e9formations de Green-Lagrange E11 (ou une autre) : vous observez que la d\'e9formation n\'92est plus exactement nulle, mais de quelques 10-3 : cela est du \'e0 la petite variation de distance cam\'e9ra - sujet, qui donne un petit effet de zoom et donc de dilatation. La commande TRE vous donne la trace du tenseur E, associ\'e9e \'e0 cette dilatation. Attention le logiciel ne peut pas savoir s\'92il s\'92agit d\'92une dilatation de l\'92objet ou d\'92une dilatation due au rapprochement de la camera ! Dans le cas pr\'e9sent les murs n\'92avaient pas boug\'e9, je vous le garantit, donc il s\'92agit de la deuxi\'e8me raison. Sortir la carte de E12 montre qu\'92un peu de cisaillement est pr\'e9sent aussi : le mouvement de la camera a pu \'eatre complexe. La carte des petites d\'e9formations EPSij est en tous points similaires \'e0 celle des des d\'e9formations de Green-Lagrange Eij car les d\'e9formation sont tr\'e8s petites dans cet exemple.\
+\
+Vous observez que toutes ces cartes de d\'e9formation sont homog\'e8nes : c\'92est ce que vous avez impos\'e9 en choisissant DEFHOM. \
+\
+
+\f2\b Exercice 4 : DigImCo-Q4 et importance de la texture
+\f0\b0 \
+\
+En passant de CORSOL \'e0 DEFHOM nous avons augment\'e9 le nombre de degr\'e9s de libert\'e9 du champ de d\'e9formation, de 3 \'e0 6 param\'e8tres. Mais c\'92est encore tr\'e8s peu. Le programme DigImCo-Q4 permet d\'92utiliser un champ de d\'e9placement poss\'e9dant une cin\'e9matique d\'92\'e9l\'e9ments finis carr\'e9s Q4. Il y a donc 2 DDL par n\'9cud et l\'92on va pouvoir choisir la taille des \'e9l\'e9ments. \
+\
+Lancer DIGIMCO_Q4, toujours sur les images du bureau. S\'e9lectionnez toute l\'92image. Le code commence par une corr\'e9lation de type DEFHOM pr\'e9c\'e9dente, donnez un flou d\'92une dizaine de pixels pour aider. Cette \'e9tape sert de pr\'e9curseur au calcul EF final.\
+\
+En fin d\'92\'e9tape le code vous demande la taille des \'e9l\'e9ments finis. L\'92image fait 720x1080 pixels (c\'92est indiqu\'e9). La taille des \'e9l\'e9ments finis ne doit pas \'eatre trop grande (sinon vous n\'92en aurez aucun dans l\'92image !) ni trop petite (sinon vous n\'92aurez aucune structure \'e0 l\'92int\'e9rieur). Taper une valeur de 100. Vous pouvez lancer directement le calcul avec un flou nul.\
+\
+Le calcul est beaucoup plus long bien s\'fbr (le code n\'92est pas optimis\'e9). Vous voyez au cours des it\'e9rations le maillage prendre une allure tr\'e8s bizarre sur l\'92image finale (figure 2), et la convergence est tr\'e8s lente (en g\'e9n\'e9ral vous irez jusqu\'92au nombre d\'92it\'e9rations maxi).\
+\
+Cela s\'92est arr\'eat\'e9 enfin, ouf ! Regardez la figure 2 : le maillage apparait tout distordu, comme si le code n\'92avait pas trouv\'e9 de solution. La figure 3 va vous surprendre (en laissant le multiplicateur des d\'e9placements \'e0 1). Je vous rappelle qu\'92il s\'92agit de la figure 1, d\'e9form\'e9e pour ressembler au mieux \'e0 la figure  2 : et c\'92est le cas ! Malgr\'e9 le champ de d\'e9placement d\'e9lirant, le si\'e8ge a bien un dossier rond, les baguettes sont (\'e0 peu pr\'e8s) droites, 
+\f1\i etc
+\f0\i0 \'85\
+\
+Observez un de ces \'e9l\'e9ments tr\'e8s distordus, comme celui du mur \'e0 droite ou du si\'e8ge noir : ils ne comportent aucune texture. Un morceau du mur corr\'e8le parfaitement avec n\'92importe quel autre morceau. Votre \'9cil, comme le logiciel, voit que l\'92image 5 est similaire \'e0 l\'92image 2. Au contraire, pour les zones qui poss\'e8dent une texture (rideaux \'e0 lamelles, bazar sur le bureau), le maillage est bien r\'e9gulier, le code a bien identifi\'e9 un mouvement de corps solide.\
+\
+Vous venez de comprendre l\'92int\'e9r\'eat de la texture des images et de son rapport avec la taille des \'e9l\'e9ments. L\'92image du bureau, qui ne poss\'e8de pas de texture en tout point, est donc \'e0 traiter avec des champs plus simples, comme celui de DEFHOM pr\'e9c\'e9demment utilis\'e9.\
+\
+
+\f2\b Exercice 4 : Utilisation d\'92une image d\'92un solide mouchet\'e9
+\f0\b0 \
+\
+Lancer DigImCo sur les images Test_homog_0 et Test_homog_1 avec un champ de mouvement de corps rigide CORSOL. Il s\'92agit d\'92images synth\'e9tiques (le mouchetis n\'92est d\'92ailleurs pas un chef d\'92\'9cuvre), d\'92un m\'eame corps avec une d\'e9formation homog\'e8ne, vous pouvez traiter l\'92image compl\'e8te. Vous pouvez choisir un flou de quelques pixels pour l\'92\'e9tape initiale et bien s\'fbr 0 pour le final.\
+\
+En fin d\'92\'e9tape vous voyez un d\'e9placement de corps solide, la carte d\'92erreur est uniform\'e9ment noire : la corr\'e9lation est quasiment parfaite. Si vous mettez un coefficient d\'92amplification de la d\'e9form\'e9e de 100 vous verrez qu\'92il y a aussi une toute petite rotation. Vous pouvez sortir ces valeurs ensuite dans les cartes de champ si vous voulez. \
+\
+Passez \'e0 DigImCo-Q4. Retenez les m\'eames r\'e9glages, avec une taille d\'92\'e9l\'e9ments finis de 100 pixels. La carte d\'92erreur est un peu moins belle (moins uniform\'e9ment noire !). Regardez la figure 5, le maillage d\'e9form\'e9 semble parfaitement r\'e9gulier (la translation ne se voit pas sur cette carte). Passez le facteur d\'92\'e9chelle \'e0 500 : des distorsions apparaissent. Sortez une carte de d\'e9formation, par exemple E11 : le champ n\'92est plus exactement homog\'e8ne comme il devrait l\'92\'eatre. Notez l\'92odre de grandeur des d\'e9formations de cet exemple : on est \'e0 la limite de la pr\'e9cision th\'e9orique de la m\'e9thode\'85\
+\
+Les \'e9l\'e9ments finis contiennent moins de taches (donc d\'92information) que l\'92image enti\'e8re et la pr\'e9cision de mesure est moindre. Lorsqu\'92on utilisait DEFHOM ou CORSOL, un tr\'e8s grand nombre de taches \'e9tait pris en compte et la pr\'e9cision \'e9tait meilleure. Bien s\'fbr, cela ne vaut que dans les cas de d\'e9formation homog\'e8ne comme nous avons trait\'e9 jusqu\'92\'e0 maintenant.\
+\
+
+\f2\b Exercice 5 : Champ presque homog\'e8ne
+\f0\b0 \
+\
+Lancer DigImCo_Q4 sur les images Chanvre_0 et Chanvre_1. Il s\'92agit d\'92essais de compression sur un b\'e9ton de chanvre, r\'e9alis\'e9 par mon coll\'e8gue Yann Lecieux en 2017, les images \'e9tant pries \'e0 niveau de charge croissant (on lit la mesure de la force en arri\'e8re plan). La texture visible du mat\'e9riau \'e9tait un peu trop grosse pour servir de mouchetis (la taille caract\'e9ristique des taches doit \'eatre de quelques pixels) et donc de fines gouttelettes de peinture noire et blanche ont \'e9t\'e9 rajout\'e9es \'e0 la bombe.\
+\
+Commencer par s\'e9lectionner le domaine d\'92int\'e9r\'eat, c\'92est \'e0 dire le chanvre (pas le reste de la machine !). Mettez un peu de flou pour aider l\'92\'e9tape grossi\'e8re. Regardez la carte d\'92erreur : on y voit quelques taches et une sorte de segment vertical en bas \'e0 gauche. Vous pouvez faire une copie d\'92\'e9cran. On y reviendra.\
+\
+Choisissez des \'e9l\'e9ments finis d\'92une cinquantaine de pixels et aucun flou. Le calcul de la matrice est long. Allez boire un caf\'e9. Le calcul pourrait \'eatre acc\'e9l\'e9r\'e9 avec une programmation plus astucieuse mais ce code une pour vocation p\'e9dagogique et privil\'e9gie la simplicit\'e9.\
+\
+\'c7a y est c\'92est fini. Observez la d\'e9form\'e9e (avec un facteur 2) : elle est assez chahut\'e9e. Sortez la carte des d\'e9formations verticales E22 : elle montre des d\'e9formations localis\'e9es, surtout en bas \'e0 droite. Elles correspondent \'e0 un m\'e9canisme d\'92extraction d\'92un coin de mati\'e8re visible en bas \'e0 droite de l\'92\'e9prouvette. Le carte des cisaillements la montre aussi. Le plus parlant est celle de la norme du d\'e9viateur NDE. D\'92autre zones de localisation apparaissent : en haut au milieu, en bas \'e0 gauche etc... La carte d\'92erreur les montre aussi. En croisant l\'92information avec l\'92image initiale, on se rend compte que le segment vertical en bas \'e0 gauche (d\'e9j\'e0 observ\'e9 sur le champ de corps solide) correspond \'e0 un brin de paille isol\'e9 en surface. Dans le cas pr\'e9sent l\'92image n\'92est pas assez d\'e9taill\'e9e pour avoir une mesure locale pr\'e9cise, le mouchetis n\'92est pas excellent.\
+\
+La corr\'e9lation avec des \'e9l\'e9ments finis donne une mesure plus locale. Cependant, pour cet essai, l\'92exp\'e9rimentateur avait besoin d\'92\'e9valuer le moule d\'92Young et le coefficient de Poisson. Cela a \'e9t\'e9 fait sur une mesure en champ homog\'e8ne, qui donne une valeur moyenne plus exploitable. La carte d\'92erreur renseigne - qualitativement - sur les domaines ou des singularit\'e9s apparaissent. \
+\
+
+\f2\b Exercice 6 : Cas d\'92une fissure
+\f0\b0 \
+\
+Lancer DigImCo_Q4 sur les images IMG_055 et IMG_060. Il s\'92agit d\'92un essai de flexion 3 points r\'e9alis\'e9 au LMT-Cachan au cours de TP de Master 2 de G\'e9nie Civil que je donnais \'e0 l\'92\'e9poque, en 2007. On distingue l\'92appui sup\'e9rieur et l\'92inf\'e9rieur droit. Le mat\'e9riau est un b\'e9ton de fibres. L\'92image 055 correspond \'e0 un cas de faible charge (\'e9tat initial) et la 060 est une des images de la s\'e9rie. Dans les deux cas l\'92\'e9prouvette semble parfaitement int\'e8gre. \
+\
+Lancer le code en s\'e9lectionnant la zone mouchet\'e9e au plus pr\'e8s par un rectangle. Sur l\'92\'e9tape initiale, mettre un flou habituel. En fin d\'92\'e9tape initiale, observez la carte d\'92erreur : elle semble bien uniforme, gage d\'92une bonne corr\'e9lation. Passez aux \'e9l\'e9ments finis, prenez une dimension de 64 pixels par exemple, sans flou. Allez boire un second caf\'e9 ou un chocolat.\
+\
+Regardez la carte d\'92erreur : elle est tr\'e8s propre. Une bande blanche tr\'e8s t\'e9nue apparait en bas au centre, au droit de l\'92appui, partant du bas. Relancer le calcul avec une taille d\'92\'e9l\'e9ments de 32 pixels. C\'92est un peu long, allez faire autre chose. \
+\
+On commence par la carte de la d\'e9form\'e9e, figure 5. A priori, on ne voit aucune d\'e9form\'e9e. Augmentez le coefficient\'85 et vous voyez qu\'92en fait la d\'e9form\'e9e ressemble \'e0 un V. Correspondant \'e0 la bande blanche observ\'e9e sur la carte d\'92erreurs, vous avez des \'e9l\'e9ments tr\'e8s tr\'e8s allong\'e9s. Bravo, c\'92est une fissure ! On ne pouvait pas la voir sur la photo car sa taille est pus petite que 1 pixel. \
+\
+Sortez la carte des d\'e9formations E11 : la fissure apparait nettement. En r\'e9alit\'e9 les \'e9l\'e9ments qui passent par la fissure sont \'93allong\'e9s\'94, avec donc un grand E11. Cette d\'e9formation n\'92est pas r\'e9elle : la fissure s\'e9pare deux blocs quasiment rigides. Si vous passiez (c\'92est tr\'e8s long) \'e0 16 pixels, la fissure apparaitrait plus fine, mieux d\'e9finie, puisque qu\'92elle influe un \'e9l\'e9ment fini plus petit dans ce cas. \
+\
+Sortez la carte des d\'e9formations verticales E22. La fissure est moins bien repr\'e9sent\'e9e (elle s\'92ouvre selon X1\'85). Par contre vous observez une petite localisation au droit de l\'92appui droit (en bas \'e0 droite). Il s\'92agit de l\'92\'e9crasement local du b\'e9ton sur le cylindre en acier. Cela est tout aussi invisible \'e0 l\'92\'9cil nu sur les photos brutes. La trace TRE et la norme du d\'e9viateur NDE donnent des cartes encore plus nettes de ces lieux. \
+\
+Au niveau de l\'92appui la carte des d\'e9placements (Figure 5) semble montrer que le b\'e9ton sort vers\'85 l\'92ext\'e9rieur ! Il ne s\'92agit pas vraiment d\'92un \'e9crasement donc. Je vous aide : il s\'92agit d\'92une esquille en surface, qui vient donc vers vous : effet de zoom et dilatation apparente. Il faut faire attention \'e0 ces effets de rapprochement, le monde n\'92est pas en 2D\'85 Ou alors acheter un couteux objectif insensible au rapprochement (t\'e9l\'e9centrique ou au moins, longue focale).\
+\
+
+\f2\b Exercice 7 Cas de grands d\'e9placements
+\f0\b0 \
+\
+Charger les images IUT. Il s\'92agit d\'92essais r\'e9alis\'e9s pour les \'e9l\'e8ves de l\'92IUT de Cachan. Le montage, peu rigide, a g\'e9n\'e9r\'e9 un grand d\'e9placement. Lancer DIGIMCO et DIGIMCO_Q4 et trouver les r\'e9glages pour avoir une carte d\'92erreur bien noire.\
+\
+Vous devriez trouver un tenseur des d\'e9formations de Green-Lagrange valant enriron :\
+\
+    'Tenseur de Grenn-Lagrange x1 1000 : '\
+    '-1.9255    0.097633'\
+    '0.097633      2.5119'\
+\
+Je rappelle que le mouchetis est tr\'e8s mauvais et l\'92essai aussi. Le meilleur mouchetis dans ces exemples est celui du b\'e9ton, assez disperse (grosses et petites taches) et les plus petites taches sont de l\'92ordre de grandeur de la taille du pixel.\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+Bones corr\'e9lations !\
+\
+A bient\'f4t pour la suite.\
+}
